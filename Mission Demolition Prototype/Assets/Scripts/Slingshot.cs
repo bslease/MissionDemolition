@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+    // --- Added for linerenderer p.533 ---
+    static private Slingshot S;
+    // ------------------------------------
+
     // fields set in the Unity Inspector pane
     [Header("Set in Inspector")]
     public GameObject prefabProjectile;
@@ -17,8 +21,22 @@ public class Slingshot : MonoBehaviour
 
     private Rigidbody projectileRigidbody;
 
+    // --- Added for linerenderer p.533 ---
+    static public Vector3 LAUNCH_POS
+    {
+        get
+        {
+            if (S == null) return Vector3.zero;
+            return S.launchPos;
+        }
+    }
+    // ------------------------------------
+
     private void Awake()
     {
+        // --- Added for linerenderer p.533 ---
+        S = this;
+        // ------------------------------------
         Transform launchPointTrans = transform.Find("LaunchPoint");
         launchPoint = launchPointTrans.gameObject;
         launchPoint.SetActive(false);
